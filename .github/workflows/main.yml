@@ -17,4 +17,12 @@ jobs:
           node-version: '22'  # Specify the Node.js version you need
 
       - name: Build Docker image
-        run: docker build -t myfirstnext:latest .
+        run: docker build -t anirban1507/myfirstnext:latest .
+
+      - name: Docker login
+        run: docker login -u "${{DOCKER_HUB_USERNAME}}" -p "${{DOCKER_HUB_PWD}}"
+
+      - name: Docker push
+        run: docker push anirban1507/myfirstnext:latest
+
+        
