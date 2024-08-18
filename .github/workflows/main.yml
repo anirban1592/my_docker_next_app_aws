@@ -1,0 +1,9 @@
+name: build_deploy_aws
+
+on:
+  push:
+    branches: ["master"]
+
+jobs:
+  build: 
+    runs-on : ubuntu-latest
