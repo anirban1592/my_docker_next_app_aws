@@ -7,3 +7,12 @@ on:
 jobs:
   build: 
     runs-on : ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.1.7
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.3
+
+      - name: Build Docker images
+      - run: docker build -t myfirstnext:latest .
