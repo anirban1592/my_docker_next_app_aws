@@ -33,7 +33,8 @@ jobs:
      
 
       - name: login to aws ec2 and check docker
-        run: ssh -i "~/.ssh/deploy_key.pem" "${{secrets.AWS_EC2_CONNECTION_STRING}}" \
-              docker info
+        run: |
+             ssh -i "~/.ssh/deploy_key.pem" "${{secrets.AWS_EC2_CONNECTION_STRING}}" \
+             docker info
 
         
