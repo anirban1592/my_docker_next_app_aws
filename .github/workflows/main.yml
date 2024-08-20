@@ -27,6 +27,7 @@ jobs:
 
       - name: aws pem key
         run:  |
+              mkdir -p ~/.ssh
               echo "${{ secrets.AWS_EC2_PEM_KEY }}" > ~/.ssh/deploy_key.pem
               chmod 600 ~/.ssh/deploy_key.pem
      
