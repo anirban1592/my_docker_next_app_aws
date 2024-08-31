@@ -39,7 +39,7 @@ jobs:
             PUBLISHED_PORT="8080"           # The port on the host machine
             CONTAINER_PORT="3000"
 
-            SERVICE_EXISTS=$(docker service ls --filter "name=$SERVICE_NAME" --format "{{.Name}}")
+            SERVICE_EXISTS=$(sudo docker service ls --filter "name=$SERVICE_NAME" --format "{{.Name}}")
             if [ "$SERVICE_EXISTS" == "$SERVICE_NAME" ]; then
                echo "Service $SERVICE_NAME already exists. Updating the service..."
 
