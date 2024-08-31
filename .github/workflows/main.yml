@@ -33,7 +33,39 @@ jobs:
       - name: login to aws ec2 and check docker
         run: |
             ssh -o StrictHostKeyChecking=no "${{secrets.AWS_EC2_CONNECTION_STRING}}" << 'EOF'
-            sudo docker info
+            #!/bin/bash
+            SERVICE_NAME="my-first-next-app"       # The name of the service you want to create or update
+            IMAGE_NAME="anirban1507/myfirstnext:latest"     # The Docker image to use for the service
+            PUBLISHED_PORT="8080"           # The port on the host machine
+            CONTAINER_PORT="3000"
+
+            SERVICE_EXISTS=$(docker service ls --filter "name=$SERVICE_NAME" --format "{{.Name}}")
+            if [ "$SERVICE_EXISTS" == "$SERVICE_NAME" ]; then
+               echo "Service $SERVICE_NAME already exists. Updating the service..."
+
+            # Update the existing service with the new image
+               docker service update --image $IMAGE_NAME $SERVICE_NAME
+
+             if [ $? -eq 0 ]; then
+                echo "Service $SERVICE_NAME updated successfully."
+             else
+                echo "Failed to update service $SERVICE_NAME."
+             exit 1
+             fi
+
+             else
+                echo "Service $SERVICE_NAME does not exist. Creating a new service..."
+
+            # Create a new service
+            docker service create --name $SERVICE_NAME --publish $PUBLISHED_PORT:$CONTAINER_PORT $IMAGE_NAME
+
+            if [ $? -eq 0 ]; then
+                echo "Service $SERVICE_NAME created successfully."
+            else
+                echo "Failed to create service $SERVICE_NAME."
+            exit 1
+            fi
+            fi
             EOF
 
         
