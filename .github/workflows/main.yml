@@ -44,7 +44,7 @@ jobs:
                echo "Service $SERVICE_NAME already exists. Updating the service..."
 
             # Update the existing service with the new image
-               docker service update --image $IMAGE_NAME $SERVICE_NAME
+              sudo docker service update --image $IMAGE_NAME $SERVICE_NAME
 
              if [ $? -eq 0 ]; then
                 echo "Service $SERVICE_NAME updated successfully."
@@ -57,7 +57,7 @@ jobs:
                 echo "Service $SERVICE_NAME does not exist. Creating a new service..."
 
             # Create a new service
-            docker service create --name $SERVICE_NAME --publish $PUBLISHED_PORT:$CONTAINER_PORT $IMAGE_NAME
+            sudo docker service create --name $SERVICE_NAME --publish $PUBLISHED_PORT:$CONTAINER_PORT $IMAGE_NAME
 
             if [ $? -eq 0 ]; then
                 echo "Service $SERVICE_NAME created successfully."
