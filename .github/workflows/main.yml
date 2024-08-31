@@ -23,19 +23,13 @@ jobs:
         run: docker login -u "${{secrets.DOCKER_HUB_USERNAME}}" -p "${{secrets.DOCKER_HUB_PWD}}"
 
       - name: Docker push
-        run: docker push anirban1507/myfirstnext:latest
-
-      - name: aws pem key
-        run:  |
-              mkdir -p ~/.ssh
-              echo "${{ secrets.AWS_EC2_PEM_KEY }}" > ~/.ssh/deploy_key.pem
-              chmod 600 ~/.ssh/deploy_key.pem
+        run: docker push anirban1507/myfirstnext:latest    
      
 
       - name: login to aws ec2 and check docker
         run: |
              ssh -o StrictHostKeyChecking=no "${{secrets.AWS_EC2_CONNECTION_STRING}}"
-             ssh -i "~/.ssh/deploy_key.pem" "${{secrets.AWS_EC2_CONNECTION_STRING}}" 
+             ssh -i "${{ secrets.AWS_EC2_PEM_KEY }}" "${{secrets.AWS_EC2_CONNECTION_STRING}}" 
              docker info
 
         
