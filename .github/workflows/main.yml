@@ -33,7 +33,7 @@ jobs:
       - name: login to aws ec2 and check docker
         run: |
             ssh -o StrictHostKeyChecking=no "${{secrets.AWS_EC2_CONNECTION_STRING}}" << 'EOF'
-            docker info
+            sudo docker info
             EOF
 
         
